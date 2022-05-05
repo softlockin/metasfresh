@@ -117,7 +117,7 @@ public class DunningDocOutboundLogMailRecipientProvider
 			if (!Check.isBlank(locationEmail))
 			{
 				Loggables.addLog("The dunned invoices all have invoiceUser={} and the location has the email {} so we take that user as the dunning mail's participant, with this email address", invoiceUser, locationEmail);
-				return Optional.of(invoiceUser.withEmailAddress(invoiceEmail));
+				return Optional.of(invoiceUser.withEmailAddress(locationEmail));
 			}
 
 			Loggables.addLog("The dunned invoices' common invoiceUser={} has not mail address", invoiceUser);
