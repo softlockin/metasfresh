@@ -92,6 +92,8 @@ public class InvoiceHeaderImplBuilder
 
 		// Tax
 		invoiceHeader.setTaxIncluded(isTaxIncluded());
+		
+		invoiceHeader.setCreditMemoReinvoiceable(isCreditMemoReinvoiceable());
 
 		// Dates
 		invoiceHeader.setDateInvoiced(getDateInvoiced());
@@ -112,6 +114,10 @@ public class InvoiceHeaderImplBuilder
 		invoiceHeader.setExternalId(getExternalId());
 
 		return invoiceHeader;
+	}
+
+	private boolean isCreditMemoReinvoiceable()
+	{
 	}
 
 	private String getExternalId()

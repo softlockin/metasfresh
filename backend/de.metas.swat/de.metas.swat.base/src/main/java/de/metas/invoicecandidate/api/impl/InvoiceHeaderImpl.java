@@ -26,6 +26,8 @@ import javax.annotation.Nullable;
 
 /* package */class InvoiceHeaderImpl implements IInvoiceHeader
 {
+
+
 	/** @return builder */
 	public static InvoiceHeaderImplBuilder builder()
 	{
@@ -75,6 +77,7 @@ import javax.annotation.Nullable;
 	private I_C_DocType docTypeInvoice;
 
 	private boolean taxIncluded;
+	private boolean creditMemoReinvoiceable;
 	private String  externalId;
 
 	private PaymentTermId paymentTermId;
@@ -320,5 +323,10 @@ import javax.annotation.Nullable;
 	public String setExternalId(String externalId)
 	{
 		return this.externalId = externalId;
+	}
+
+	public void setCreditMemoReinvoiceable(final boolean isCreditMemoReinvoiceable)
+	{
+		this.creditMemoReinvoiceable = isCreditMemoReinvoiceable;
 	}
 }

@@ -650,8 +650,6 @@ public final class AggregationEngine
 		final Money totalAmt = invoiceHeader.calculateTotalNetAmtFromLines();
 
 		final InvoiceDocBaseType docBaseType;
-
-		//
 		// Case: Invoice DocType was preset
 		if (invoiceHeader.getC_DocTypeInvoice() != null)
 		{
@@ -705,6 +703,11 @@ public final class AggregationEngine
 		if (totalAmt.signum() < 0)
 		{
 			invoiceHeader.negateAllLineAmounts();
+		}
+
+		if(docBaseType.isCreditMemo())
+		{
+			invoiceHeader.setCreditMemoReinvoiceable(true);
 		}
 
 		invoiceHeader.setDocBaseType(docBaseType);
