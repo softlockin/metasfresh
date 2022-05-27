@@ -119,6 +119,16 @@ final DockerConf appDockerConf = reportDockerConf
                     cucumberBuildFile.build(mvnConf, scmVars)
                 }
 
+                withCredentials([string(credentialsId: 'testmo_jenkins', variable: 'TESTMO_TOKEN')]) {
+                    bash """testmo automation:run:submit \
+                            --instance https://metasfresh.testmo.net \
+                            --project-id 1 \
+                            --name 'New test run' \
+                            --source 'unit-tests-jenkins' \
+                            --results **/TEST-*.xml \
+                            """
+                }
+
 //                final String metasfreshDistSQLOnlyURL = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-dist-dist/${misc.urlEncode(env.MF_VERSION)}/metasfresh-dist-dist-${misc.urlEncode(env.MF_VERSION)}-sql-only.tar.gz"
 //                testSQLMigrationScripts(
 //                        params.MF_SQL_SEED_DUMP_URL,
