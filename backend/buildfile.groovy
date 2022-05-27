@@ -120,7 +120,7 @@ final DockerConf appDockerConf = reportDockerConf
                 }
 
                 withCredentials([string(credentialsId: 'testmo_jenkins', variable: 'TESTMO_TOKEN')]) {
-                    bash """testmo automation:run:submit \
+                    sh """testmo automation:run:submit \
                             --instance https://metasfresh.testmo.net \
                             --project-id 1 \
                             --name 'New test run' \
