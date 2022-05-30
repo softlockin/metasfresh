@@ -123,26 +123,26 @@ final DockerConf appDockerConf = reportDockerConf
                 withCredentials([string(credentialsId: 'testmo_jenkins', variable: 'TESTMO_TOKEN')]) {
 
 //                    final String refname = misc.mkDockerTag(env.BRANCH_NAME);
-//
-//                    sh """testmo automation:run:submit \
-//                            --instance https://metasfresh.testmo.net \
-//                            --project-id 1 \
-//                            --name 'New test run' \
-//                            --source 'unit-tests-jenkins' \
-//                            --results **/TEST-*.xml \
-//                            """
+//                    --tags ${refname} \
 
-//                    dir('de.metas.cucumber') {
-//                   --tags ${refname} \
-//                        sh """testmo automation:run:submit \
-//                            --instance https://metasfresh.testmo.net \
-//                            --project-id 1 \
-//                            --name 'New test run' \
-//                            --source 'cucumber-tests-jenkins' \
-//                            --tags ${refname} \
-//                            --results target/*.xml \
-//                            """
-//                    }
+                    sh """testmo automation:run:submit \
+                            --instance https://metasfresh.testmo.net \
+                            --project-id 1 \
+                            --name 'New test run' \
+                            --source 'unit-tests-jenkins' \
+                            --results **/TEST-*.xml \
+                            """
+
+                    dir('de.metas.cucumber') {
+
+                        sh """testmo automation:run:submit \
+                            --instance https://metasfresh.testmo.net \
+                            --project-id 1 \
+                            --name 'New test run' \
+                            --source 'cucumber-tests-jenkins' \
+                            --results target/*.xml \
+                            """
+                    }
                 }
 
 //                final String metasfreshDistSQLOnlyURL = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-dist-dist/${misc.urlEncode(env.MF_VERSION)}/metasfresh-dist-dist-${misc.urlEncode(env.MF_VERSION)}-sql-only.tar.gz"
