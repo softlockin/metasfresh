@@ -122,15 +122,15 @@ final DockerConf appDockerConf = reportDockerConf
 
                 withCredentials([string(credentialsId: 'testmo_jenkins', variable: 'TESTMO_TOKEN')]) {
 
-                    final String refname = misc.mkDockerTag(env.BRANCH_NAME);
-                    
-                    sh """testmo automation:run:submit \
-                            --instance https://metasfresh.testmo.net \
-                            --project-id 1 \
-                            --name 'New test run' \
-                            --source 'unit-tests-jenkins' \
-                            --results **/TEST-*.xml \
-                            """
+//                    final String refname = misc.mkDockerTag(env.BRANCH_NAME);
+//
+//                    sh """testmo automation:run:submit \
+//                            --instance https://metasfresh.testmo.net \
+//                            --project-id 1 \
+//                            --name 'New test run' \
+//                            --source 'unit-tests-jenkins' \
+//                            --results **/TEST-*.xml \
+//                            """
 
 //                    dir('de.metas.cucumber') {
 //                   --tags ${refname} \
