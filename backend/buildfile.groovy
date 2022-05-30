@@ -129,20 +129,20 @@ final DockerConf appDockerConf = reportDockerConf
                             --project-id 1 \
                             --name 'New test run' \
                             --source 'unit-tests-jenkins' \
-                            --tags ${refname} \
                             --results **/TEST-*.xml \
                             """
 
-                    dir('de.metas.cucumber') {
-                        sh """testmo automation:run:submit \
-                            --instance https://metasfresh.testmo.net \
-                            --project-id 1 \
-                            --name 'New test run' \
-                            --source 'cucumber-tests-jenkins' \
-                            --tags ${refname} \
-                            --results target/*.xml \
-                            """
-                    }
+//                    dir('de.metas.cucumber') {
+//                   --tags ${refname} \
+//                        sh """testmo automation:run:submit \
+//                            --instance https://metasfresh.testmo.net \
+//                            --project-id 1 \
+//                            --name 'New test run' \
+//                            --source 'cucumber-tests-jenkins' \
+//                            --tags ${refname} \
+//                            --results target/*.xml \
+//                            """
+//                    }
                 }
 
 //                final String metasfreshDistSQLOnlyURL = "${mvnConf.deployRepoURL}/de/metas/dist/metasfresh-dist-dist/${misc.urlEncode(env.MF_VERSION)}/metasfresh-dist-dist-${misc.urlEncode(env.MF_VERSION)}-sql-only.tar.gz"
