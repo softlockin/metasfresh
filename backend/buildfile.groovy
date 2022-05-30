@@ -122,7 +122,6 @@ final DockerConf appDockerConf = reportDockerConf
 
                 withCredentials([string(credentialsId: 'testmo_jenkins', variable: 'TESTMO_TOKEN')]) {
 
-                    final Misc misc = new Misc()
                     final String refname = misc.mkDockerTag(env.BRANCH_NAME);
                     
                     sh """testmo automation:run:submit \
