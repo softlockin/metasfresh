@@ -125,7 +125,7 @@ final DockerConf appDockerConf = reportDockerConf
 //                    final String refname = misc.mkDockerTag(env.BRANCH_NAME);
 //                    --tags ${refname} \
 
-                    sh """testmo automation:run:submit \
+                    sh """shopt -s globstar && testmo automation:run:submit \
                             --instance https://metasfresh.testmo.net \
                             --project-id 1 \
                             --name 'New test run' \
@@ -135,7 +135,7 @@ final DockerConf appDockerConf = reportDockerConf
 
                     dir('de.metas.cucumber') {
 
-                        sh """testmo automation:run:submit \
+                        sh """shopt -s globstar && testmo automation:run:submit \
                             --instance https://metasfresh.testmo.net \
                             --project-id 1 \
                             --name 'New test run' \
