@@ -57,7 +57,6 @@ public class RetrieveAvailableHUsToPickFilters
 	public List<I_M_HU> retrieveFullTreeAndExcludePickingHUs(@NonNull final List<I_M_HU> vhus)
 	{
 		final List<I_M_HU> husTopLevel = retrieveTopLevelUs(vhus);
-
 		return filterForValidPaths(husTopLevel);
 	}
 
