@@ -45,8 +45,16 @@ import lombok.NonNull;
 @Component
 public class InvoiceCandidateViewHeaderPropertiesProvider implements ViewHeaderPropertiesProvider
 {
-	private final IInvoiceCandBL invoiceCandBL = Services.get(IInvoiceCandBL.class);
-	private final IMsgBL msgBL = Services.get(IMsgBL.class);
+	private final IInvoiceCandBL invoiceCandBL;
+	private final IMsgBL msgBL;
+
+	public InvoiceCandidateViewHeaderPropertiesProvider(
+			@NonNull final IInvoiceCandBL invoiceCandBL,
+			@NonNull final IMsgBL msgBL)
+	{
+		this.invoiceCandBL = invoiceCandBL;
+		this.msgBL = msgBL;
+	}
 
 	@Override
 	public String getAppliesOnlyToTableName()

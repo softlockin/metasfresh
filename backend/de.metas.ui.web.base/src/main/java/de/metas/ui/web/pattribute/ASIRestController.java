@@ -83,7 +83,7 @@ public class ASIRestController
 
 	private static final String SYSCONFIG_LookupAppendDescriptionToName = "webui.attributeValues.appendDescriptionToName";
 
-	private final ISysConfigBL sysConfigBL = Services.get(ISysConfigBL.class);
+	private final ISysConfigBL sysConfigBL;
 	private final UserSession userSession;
 	private final ASIRepository asiRepo;
 	private final DocumentCollection documentsCollection;
@@ -93,12 +93,14 @@ public class ASIRestController
 			@NonNull final UserSession userSession,
 			@NonNull final ASIRepository asiRepo,
 			@NonNull final DocumentCollection documentsCollection,
-			@NonNull final IViewsRepository viewsRepository)
+			@NonNull final IViewsRepository viewsRepository,
+			@NonNull final ISysConfigBL sysConfigBL)
 	{
 		this.userSession = userSession;
 		this.asiRepo = asiRepo;
 		this.documentsCollection = documentsCollection;
 		this.viewsRepository = viewsRepository;
+		this.sysConfigBL = sysConfigBL;
 	}
 
 	private JSONDocumentOptions newJsonDocumentOpts()
