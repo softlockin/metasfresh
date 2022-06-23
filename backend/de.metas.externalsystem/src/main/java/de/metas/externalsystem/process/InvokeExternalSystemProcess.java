@@ -102,6 +102,8 @@ public abstract class InvokeExternalSystemProcess extends JavaProcess implements
 	{
 		final ExternalSystemParentConfig config = externalSystemConfigDAO.getById(getExternalChildConfigId());
 
+		//todo mi:
+
 		return JsonExternalSystemRequest.builder()
 				.externalSystemConfigId(JsonMetasfreshId.of(config.getId().getRepoId()))
 				.externalSystemName(JsonExternalSystemName.of(config.getType().getName()))
@@ -112,6 +114,7 @@ public abstract class InvokeExternalSystemProcess extends JavaProcess implements
 				.traceId(externalSystemConfigService.getTraceId())
 				.writeAuditEndpoint(config.getAuditEndpointIfEnabled())
 				.externalSystemChildConfigValue(config.getChildConfig().getValue())
+				.authToken(config.getAuthToken())
 				.build();
 	}
 

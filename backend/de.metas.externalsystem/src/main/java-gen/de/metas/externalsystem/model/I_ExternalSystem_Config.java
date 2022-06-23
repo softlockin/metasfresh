@@ -1,7 +1,8 @@
 package de.metas.externalsystem.model;
 
-import javax.annotation.Nullable;
 import org.adempiere.model.ModelColumn;
+
+import javax.annotation.Nullable;
 
 /** Generated Interface for ExternalSystem_Config
  *  @author metasfresh (generated) 
@@ -70,6 +71,27 @@ public interface I_ExternalSystem_Config
 
 	ModelColumn<I_ExternalSystem_Config, Object> COLUMN_AuditFileFolder = new ModelColumn<>(I_ExternalSystem_Config.class, "AuditFileFolder", null);
 	String COLUMNNAME_AuditFileFolder = "AuditFileFolder";
+
+	/**
+	 * Set Authentication Token.
+	 *
+	 * <br>Type: String
+	 * <br>Mandatory: false
+	 * <br>Virtual Column: false
+	 */
+	void setAuthToken (@Nullable java.lang.String AuthToken);
+
+	/**
+	 * Get Authentication Token.
+	 *
+	 * <br>Type: String
+	 * <br>Mandatory: false
+	 * <br>Virtual Column: false
+	 */
+	@Nullable java.lang.String getAuthToken();
+
+	ModelColumn<I_ExternalSystem_Config, Object> COLUMN_AuthToken = new ModelColumn<>(I_ExternalSystem_Config.class, "AuthToken", null);
+	String COLUMNNAME_AuthToken = "AuthToken";
 
 	/**
 	 * Get Created.

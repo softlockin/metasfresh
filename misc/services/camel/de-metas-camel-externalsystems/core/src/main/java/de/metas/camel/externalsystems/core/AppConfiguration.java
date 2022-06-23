@@ -61,6 +61,15 @@ public class AppConfiguration
 				.addEventNotifier(new AuditEventNotifier(producerTemplate()));
 	}
 
+	@PostConstruct
+	public void authorizationTokenNotifier()
+	{
+		final String defaultAuthToken = context.getEnvironment().getProperty(CoreConstants.AUTHORIZATION_TOKEN.replaceAll("\\{", "").replaceAll("}", ""));
+		// note that calling producerTemp8late() here does *not* mean wh create an additional instance. See https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans for details
+		camelContext.getManagementStrategy()
+				.addEventNotifier(new MetasfreshAuthorizationTokenNotifier(producerTemplate(), defaultAuthToken));
+	}
+
 	@Bean
 	CamelContextConfiguration contextConfiguration()
 	{

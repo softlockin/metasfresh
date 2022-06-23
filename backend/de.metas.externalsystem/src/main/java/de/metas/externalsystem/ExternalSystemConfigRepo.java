@@ -228,7 +228,7 @@ public class ExternalSystemConfigRepo
 				.filter(ExternalSystemParentConfig::isActive)
 				.collect(ImmutableList.toImmutableList());
 	}
-	
+
 	public void saveConfig(@NonNull final ExternalSystemParentConfig config)
 	{
 		switch (config.getType())
@@ -249,7 +249,7 @@ public class ExternalSystemConfigRepo
 		switch (externalSystemType)
 		{
 			case Alberta:
-					return getAlbertaConfigByQuery(query);
+				return getAlbertaConfigByQuery(query);
 			case Shopware6:
 				return getShopware6ConfigByQuery(query);
 			case Ebay:
@@ -510,7 +510,8 @@ public class ExternalSystemConfigRepo
 				.orgId(OrgId.ofRepoId(externalSystemConfigRecord.getAD_Org_ID()))
 				.active(externalSystemConfigRecord.isActive())
 				.writeAudit(externalSystemConfigRecord.isWriteAudit())
-				.auditFileFolder(externalSystemConfigRecord.getAuditFileFolder());
+				.auditFileFolder(externalSystemConfigRecord.getAuditFileFolder())
+				.authToken(externalSystemConfigRecord.getAuthToken());
 	}
 
 	private ExternalSystemParentConfig getById(@NonNull final ExternalSystemOtherConfigId id)
@@ -579,7 +580,6 @@ public class ExternalSystemConfigRepo
 		final ExternalSystemEbayConfigId externalSystemEbayConfigId =
 				ExternalSystemEbayConfigId.ofRepoId(config.getExternalSystem_Config_Ebay_ID());
 
-
 		return ExternalSystemEbayConfig.builder()
 				.id(ExternalSystemEbayConfigId.ofRepoId(config.getExternalSystem_Config_Ebay_ID()))
 				.parentId(ExternalSystemParentConfigId.ofRepoId(config.getExternalSystem_Config_ID()))
@@ -646,8 +646,6 @@ public class ExternalSystemConfigRepo
 				.build();
 	}
 
-
-
 	@NonNull
 	private ExternalSystemParentConfig getById(@NonNull final ExternalSystemWooCommerceConfigId id)
 	{
@@ -708,7 +706,6 @@ public class ExternalSystemConfigRepo
 				.map(this::getExternalSystemParentConfig)
 				.collect(ImmutableList.toImmutableList());
 	}
-
 
 	@NonNull
 	private Optional<ExternalSystemParentConfig> getAlbertaConfigByQuery(@NonNull final ExternalSystemConfigQuery query)

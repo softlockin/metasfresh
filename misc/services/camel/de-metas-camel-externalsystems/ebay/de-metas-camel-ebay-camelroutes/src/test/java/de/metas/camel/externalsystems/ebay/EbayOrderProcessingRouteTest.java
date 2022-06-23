@@ -22,23 +22,22 @@
 
 package de.metas.camel.externalsystems.ebay;
 
-import static de.metas.camel.externalsystems.common.ExternalSystemCamelConstants.MF_PUSH_OL_CANDIDATES_ROUTE_ID;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Properties;
-
+import com.ebay.api.client.auth.oauth2.OAuth2Api;
+import com.ebay.api.client.auth.oauth2.model.AccessToken;
+import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
+import com.ebay.api.client.auth.oauth2.model.RefreshToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.metas.camel.externalsystems.common.ExternalSystemCamelConstants;
+import de.metas.camel.externalsystems.common.ProcessLogger;
+import de.metas.camel.externalsystems.ebay.api.OrderApi;
+import de.metas.camel.externalsystems.ebay.api.model.Order;
+import de.metas.camel.externalsystems.ebay.api.model.OrderSearchPagedCollection;
+import de.metas.common.externalsystem.ExternalSystemConstants;
+import de.metas.common.externalsystem.JsonExternalSystemName;
+import de.metas.common.externalsystem.JsonExternalSystemRequest;
+import de.metas.common.ordercandidates.v2.request.JsonOLCandCreateBulkRequest;
+import de.metas.common.ordercandidates.v2.request.JsonOLCandCreateRequest;
+import de.metas.common.rest_api.common.JsonMetasfreshId;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Exchange;
@@ -62,24 +61,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.ebay.api.client.auth.oauth2.OAuth2Api;
-import com.ebay.api.client.auth.oauth2.model.AccessToken;
-import com.ebay.api.client.auth.oauth2.model.OAuthResponse;
-import com.ebay.api.client.auth.oauth2.model.RefreshToken;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Properties;
 
-import de.metas.camel.externalsystems.common.ExternalSystemCamelConstants;
-import de.metas.camel.externalsystems.common.ProcessLogger;
-import de.metas.camel.externalsystems.ebay.api.OrderApi;
-import de.metas.camel.externalsystems.ebay.api.model.LineItem;
-import de.metas.camel.externalsystems.ebay.api.model.Order;
-import de.metas.camel.externalsystems.ebay.api.model.OrderSearchPagedCollection;
-import de.metas.common.externalsystem.ExternalSystemConstants;
-import de.metas.common.externalsystem.JsonExternalSystemName;
-import de.metas.common.externalsystem.JsonExternalSystemRequest;
-import de.metas.common.ordercandidates.v2.request.JsonOLCandCreateBulkRequest;
-import de.metas.common.ordercandidates.v2.request.JsonOLCandCreateRequest;
-import de.metas.common.rest_api.common.JsonMetasfreshId;
+import static de.metas.camel.externalsystems.common.ExternalSystemCamelConstants.MF_PUSH_OL_CANDIDATES_ROUTE_ID;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test which instantiates the complete ebay order processing route and feeds a
@@ -172,16 +168,17 @@ public class EbayOrderProcessingRouteTest
 		parameters.put(ExternalSystemConstants.PARAM_UPDATED_AFTER, "%5B2016-03-21T08:25:43.511Z%5D");
 		parameters.put(ExternalSystemConstants.PARAM_API_MODE, ApiMode.SANDBOX.name());
 
-		JsonExternalSystemRequest jesr = new JsonExternalSystemRequest(
-				"orgCode",
-				JsonExternalSystemName.of("ebay"),
-				"getOrders",
-				null,
-				JsonMetasfreshId.of(1),
-				parameters,
-				"traceId",
-				"auditendpoint",
-				"externalSystemChildConfigValue");
+		JsonExternalSystemRequest jesr = JsonExternalSystemRequest.builder()
+				.orgCode("orgCode")
+				.externalSystemName(JsonExternalSystemName.of("ebay"))
+				.command("getOrders")
+				.externalSystemConfigId(JsonMetasfreshId.of(1))
+				.parameters(parameters)
+				.traceId("traceId")
+				.writeAuditEndpoint("auditendpoint")
+				.externalSystemChildConfigValue("externalSystemChildConfigValue")
+				.build();
+
 
 		// put mock clients into body
 		Map<String, Object> body = new HashMap<>();

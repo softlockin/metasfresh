@@ -12,7 +12,7 @@ import java.util.Properties;
 public class X_ExternalSystem_Config extends org.compiere.model.PO implements I_ExternalSystem_Config, org.compiere.model.I_Persistent 
 {
 
-	private static final long serialVersionUID = -2074513149L;
+	private static final long serialVersionUID = 1096772075L;
 
     /** Standard Constructor */
     public X_ExternalSystem_Config (final Properties ctx, final int ExternalSystem_Config_ID, @Nullable final String trxName)
@@ -44,6 +44,18 @@ public class X_ExternalSystem_Config extends org.compiere.model.PO implements I_
 	public java.lang.String getAuditFileFolder() 
 	{
 		return get_ValueAsString(COLUMNNAME_AuditFileFolder);
+	}
+
+	@Override
+	public void setAuthToken (final @Nullable java.lang.String AuthToken)
+	{
+		set_Value (COLUMNNAME_AuthToken, AuthToken);
+	}
+
+	@Override
+	public java.lang.String getAuthToken() 
+	{
+		return get_ValueAsString(COLUMNNAME_AuthToken);
 	}
 
 	@Override

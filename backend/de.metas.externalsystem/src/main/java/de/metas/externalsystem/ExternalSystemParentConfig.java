@@ -50,6 +50,9 @@ public class ExternalSystemParentConfig
 	@Getter(AccessLevel.NONE)
 	String auditFileFolder;
 
+	@Nullable
+	String authToken;
+
 	@Builder(toBuilder = true)
 	public ExternalSystemParentConfig(
 			@NonNull final ExternalSystemParentConfigId id,
@@ -59,7 +62,9 @@ public class ExternalSystemParentConfig
 			@NonNull final OrgId orgId,
 			@NonNull final IExternalSystemChildConfig childConfig,
 			@NonNull final Boolean writeAudit,
-			@Nullable final String auditFileFolder)
+			@Nullable final String auditFileFolder,
+			@Nullable final String authToken
+	)
 	{
 		if (!type.equals(childConfig.getId().getType()))
 		{
@@ -76,6 +81,7 @@ public class ExternalSystemParentConfig
 		this.childConfig = childConfig;
 		this.active = active;
 		this.writeAudit = writeAudit;
+		this.authToken = authToken;
 		
 		this.auditFileFolder = writeAudit
 				? Check.assumeNotNull(auditFileFolder, "If writeAudit==true, then auditFileFolder is set")

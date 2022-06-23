@@ -65,6 +65,9 @@ public class JsonExternalSystemRequest
 	@Nullable
 	String writeAuditEndpoint;
 
+	@Nullable
+	String authToken;
+
 	@Builder
 	@JsonCreator
 	public JsonExternalSystemRequest(
@@ -76,7 +79,8 @@ public class JsonExternalSystemRequest
 			@JsonProperty("parameters") @Singular final Map<String, String> parameters,
 			@JsonProperty("traceId") @NonNull final String traceId,
 			@JsonProperty("writeAuditEndpoint") @Nullable final String writeAuditEndpoint,
-			@JsonProperty("externalSystemChildConfigValue") @NonNull final String externalSystemChildConfigValue)
+			@JsonProperty("externalSystemChildConfigValue") @NonNull final String externalSystemChildConfigValue,
+			@JsonProperty("authToken") @Nullable String authToken)
 	{
 		this.externalSystemConfigId = externalSystemConfigId;
 		this.orgCode = orgCode;
@@ -87,5 +91,6 @@ public class JsonExternalSystemRequest
 		this.traceId = traceId;
 		this.writeAuditEndpoint = writeAuditEndpoint;
 		this.externalSystemChildConfigValue = externalSystemChildConfigValue;
+		this.authToken = authToken;
 	}
 }
